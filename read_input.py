@@ -4,7 +4,7 @@ import haversine as hs
 # service_time = timedelta(minutes=1)
 # max_ride_time_client = timedelta(minutes=30)
 service_time = 1 # Minutes
-max_ride_time_client = 30 # Minutes
+max_ride_time_client = 100 # Minutes
 
 def center_of_gravity(filenames):
 
@@ -84,9 +84,8 @@ for point1 in set1:
 cost = {}
 for vehicle in vehicles:
     for (pickup_point, delivery_point), dist in distance.items():
-        cost[pickup_point, delivery_point, vehicle] = dist
+        cost[pickup_point, delivery_point, vehicle] = 0.4*dist
 
 print("Demands: ",demand)
 print("Distances: ", distance)
 print("Costs: ", cost)
-
