@@ -1,5 +1,6 @@
 import pandas as pd
 import haversine as hs
+from Dataset.instance_data import num_points
 
 # service_time = timedelta(minutes=1)
 # max_ride_time_client = timedelta(minutes=30)
@@ -22,7 +23,7 @@ def center_of_gravity(filenames):
   longitude_cg = combined_longitudes.mean()
 
   # Create DataFrame
-  ids = ["Source", "Sink"]
+  ids = [0, 2*num_points+1]
   df = pd.DataFrame({'id': ids, 'latitude': latitude_cg, 'longitude': longitude_cg})
   df.to_csv('Dataset/depots.csv', index=False)
 
@@ -55,6 +56,7 @@ for point in delivery_points:
 for point in depots:
     demand[point] = 0
 
+points_no_depots = pickup_points + delivery_points
 set1 = pickup_points + delivery_points
 set1.append(depots[0])
 set2 = pickup_points + delivery_points
@@ -79,6 +81,9 @@ for point1 in set1:
             d = hs.haversine((latitude1, longitude1), (latitude2, longitude2))
             distance[point1, point2] = d
 
+# Trick
+distance[0, 2*num_points+1] = 1000000000000
+
 # Creating a dictionary of costs of going from pickup point i to delivery point j using vehicle k
 # For the moment cost is equal for every
 cost = {}
@@ -86,6 +91,9 @@ for vehicle in vehicles:
     for (pickup_point, delivery_point), dist in distance.items():
         cost[pickup_point, delivery_point, vehicle] = 0.4*dist
 
+print("Set1: ", set1)
+print("Set2: ", set2)
+print("All points: ", all_points)
 print("Demands: ",demand)
 print("Distances: ", distance)
 print("Costs: ", cost)
