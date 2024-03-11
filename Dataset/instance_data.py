@@ -1,4 +1,4 @@
-num_points = 4
+num_points = 20
 
 # Reggio Emilia boundaries
 min_latitude = 44.5

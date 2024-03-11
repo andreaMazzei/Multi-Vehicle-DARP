@@ -64,7 +64,8 @@ for (i, j, k), value in sol.items():
 for k, values in k_lists.items():
     print(f"List for k={k}: {values}")
     # route[k] = route(values)
-#
+
+
 # def extract_routes(k_lists):
 #     routes = []
 #

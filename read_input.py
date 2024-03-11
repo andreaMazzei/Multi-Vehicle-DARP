@@ -81,7 +81,7 @@ for point1 in set1:
             d = hs.haversine((latitude1, longitude1), (latitude2, longitude2))
             distance[point1, point2] = d
 
-# Trick
+# Trick (probably not correct)
 distance[0, 2*num_points+1] = 1000000000000
 
 # Creating a dictionary of costs of going from pickup point i to delivery point j using vehicle k
